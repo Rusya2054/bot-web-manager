@@ -1,4 +1,4 @@
-package com.Rusya2054.bot.web.manager.controllers;
+package com.Rusya2054.bot.web.manager.controllers.security;
 
 import com.Rusya2054.bot.web.manager.models.security.User;
 import com.Rusya2054.bot.web.manager.services.UserService;
@@ -24,7 +24,6 @@ public class EntranceController {
     @PostMapping("/logout")
     public String logout(){
         User currentUser = userService.getCurrentUser();
-        System.out.println("currentUser: " + currentUser);
         return "redirect:/login";
     }
 }
