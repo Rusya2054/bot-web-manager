@@ -1,2 +1,2 @@
-# bot-web-manager
-Web system for managing
+# bot-web-maneger
+Web Manager

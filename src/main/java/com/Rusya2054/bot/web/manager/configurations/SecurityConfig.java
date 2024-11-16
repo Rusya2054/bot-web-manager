@@ -12,6 +12,7 @@ import com.Rusya2054.bot.web.manager.services.ApplicationUserDetailService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Data
 @Configuration
@@ -29,7 +30,9 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
+        // Настроить хранение CSRF токенов в cookies
+        return http.csrf(csrf -> csrf
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeRequests(auth->auth
                         .requestMatchers("/login", "/admin/**").permitAll()
                         .anyRequest().authenticated())

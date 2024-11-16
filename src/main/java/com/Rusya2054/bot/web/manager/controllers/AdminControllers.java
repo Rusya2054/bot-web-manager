@@ -10,9 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,13 +22,15 @@ public class AdminControllers {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    // TODO: установить роли
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable Long id){
+        System.out.println(id);
+        userService.deleteUser(id);
+    }
 
     @GetMapping("/")
     public String getAdminPanel(Model model){
-        // TODO: удалять и добавлять
         List<User> users = userService.getUsers();
-        System.out.println("users: " + users);
         model.addAttribute("users", users);
         model.addAttribute("currentUser", userService.getCurrentUser());
         model.addAttribute("roles", List.of(Role.ROLE_USER, Role.ROLE_MODER, Role.ROLE_ADMIN));
