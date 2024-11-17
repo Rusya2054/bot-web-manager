@@ -27,6 +27,9 @@ public class Specialist {
     @Column(name = "tgUserID")
     private Long tgUserID;
 
+    @Column(name = "isActive")
+    private boolean isActive = true;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private SpecialistImage image;

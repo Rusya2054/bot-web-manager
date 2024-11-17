@@ -40,8 +40,14 @@ public class SecurityConfig {
                         .loginPage("/login")
 //                        .defaultSuccessUrl("/main", true)
                         .usernameParameter("username")
-                        .failureUrl("/login?error").
-                        permitAll()).build();
+                        .failureUrl("/login?error")
+                        .permitAll())
+                .logout(logout->logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"))
+                .build();
     }
 
     @Bean

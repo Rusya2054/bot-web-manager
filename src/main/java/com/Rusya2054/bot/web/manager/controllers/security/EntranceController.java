@@ -1,12 +1,10 @@
 package com.Rusya2054.bot.web.manager.controllers.security;
 
-import com.Rusya2054.bot.web.manager.models.security.User;
 import com.Rusya2054.bot.web.manager.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,9 +19,9 @@ public class EntranceController {
         return "login-form";
     }
 
-    @PostMapping("/logout")
-    public String logout(){
-        User currentUser = userService.getCurrentUser();
-        return "redirect:/login";
-    }
+//    @PostMapping("/logout")
+//    public String logout(){
+//        User currentUser = userService.getCurrentUser();
+//        return "redirect:/login";
+//    }
 }
