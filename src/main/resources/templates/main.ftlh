@@ -74,7 +74,8 @@
         display: block;
     }
     #specialists{
-        background-image: url('/specialists.svg');
+        background-color: transparent;
+        background-image: url('/specialists-button.svg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
@@ -84,29 +85,125 @@
         cursor: pointer;
         vertical-align: bottom;
     }
+
+    #clients{
+        background-color: transparent;
+        background-image: url('/clients-button.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width: 150px;
+        height: 150px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        vertical-align: bottom;
+    }
+
+    #statistics{
+        background-color: transparent;
+        background-image: url('/statistics-button.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width: 150px;
+        height: 150px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        vertical-align: bottom;
+    }
+
+    #manage{
+        background-color: transparent;
+        background-image: url('/management-button.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width: 150px;
+        height: 150px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        vertical-align: bottom;
+    }
+
+    #bot{
+        background-color: transparent;
+        background-image: url('/bot-button.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width: 150px;
+        height: 150px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        vertical-align: bottom;
+    }
+
+    #logout{
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width: 150px;
+        height: 150px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        vertical-align: bottom;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, auto);
+        gap: 10px;
+        width: 100%;
+        height: 100%;
+    }
+    #tools {
+        grid-column: 1 / 4; /* Занимает весь верхний ряд */
+        display: grid; /* Включаем CSS Grid */
+        grid-template-columns: repeat(6, 1fr); /* Разбиваем на 6 равных колонок */
+        gap: 10px;
+    }
+    #filial-list {
+        grid-column: 1; /* Первый столбец */
+        grid-row: 2 / 4; /* Занимает два ряда */
+    }
+    #filial-info-storage {
+        grid-column: 2 / 4; /* Занимает два столбца справа */
+        grid-row: 2 / 4; /* Занимает два ряда */
+    }
+    #tools input {
+        grid-column: span 1; /* Каждый input занимает одну колонку */
+        max-width: 100%; /* Предотвращаем перерастяжение */
+    }
 </style>
 <body>
-    ${currentUser}<br>
-    Main
-    <div name="tools">
-        <input id="specialists" name="specialists" value="специалисты" type="button" onclick="window.location.href='/specialist'">
-        <input name="statistics" type="button" onclick="logout()">
-        <input name="clients" type="button" onclick="logout()">
-         <input name="logout" value="Выход" type="button" onclick="logout()">
-    </div>
-    <#if filials?has_content>
-        <ul class="menu">
-        <#list filials as filial>
-            <li class="menu-item"> ${filial.name}
-                <ul class="submenu">
-                    <li>Подэлемент 1</li>
-                    <li>Подэлемент 2</li>
-                    <li>Подэлемент 3</li>
+    <div class="grid-container">
+        <div id="tools" style="background-color: red;">
+            <input id="specialists" name="specialists" value="специалисты" type="button" onclick="window.location.href='/specialist'">
+            <input id="statistics" name="statistics" value="статистика" type="button" onclick="window.location.href='/client'">
+            <input id="clients" name="clients" value="Клиенты" type="button" onclick="window.location.href='/client'">
+            <input id="manage" name="manage" value="Панель управления" type="button" onclick="window.location.href='/client'">
+            <input id="bot" name="bot" value="Бот" type="button" onclick="window.location.href='/client'">
+            <input id="logout" name="logout" value="Выход" type="button" onclick="logout()">
+        </div>
+        <div id="filial-list">
+            <#if filials?has_content>
+                <ul class="menu">
+                    <#list filials as filial>
+                        <li class="menu-item">${filial.name}
+                            <ul class="submenu">
+                                <li>Подэлемент 1</li>
+                                <li>Подэлемент 2</li>
+                                <li>Подэлемент 3</li>
+                            </ul>
+                        </li>
+                    </#list>
                 </ul>
-            </li>
-        </#list>
-        </ul>
-    </#if>
-
+            </#if>
+        </div>
+        <div id="filial-info-storage" style="background-color: green;">
+            текст
+        </div>
+    </div>
 </body>
 </html>

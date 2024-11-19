@@ -3,7 +3,6 @@ package com.Rusya2054.bot.web.manager.models.client;
 import jakarta.persistence.*;
 import lombok.Data;
 
-//TODO переименовать
 @Data
 @Entity
 @Table(name = "ai_chat_history")

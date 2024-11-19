@@ -47,6 +47,7 @@ public class AdminControllers {
     // TODO: добавить логи бота
     // TODO: перезапуск бота (отражать старт/стоп это в логах)
     // TODO: логги по кнопке лучше, т.к. String тяжелый List<BotLogger> loggers = botLoggerService.getAllLogs();
+    // TODO: анимация появлений
 
     @GetMapping("/")
     public String getAdminPanel(Model model){
