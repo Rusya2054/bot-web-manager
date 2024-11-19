@@ -24,6 +24,9 @@
     }
 </script>
 <style>
+    body{
+        background-color: #e6e6fa;
+    }
     .menu {
         list-style: none;
         padding: 0;
@@ -31,16 +34,17 @@
     }
 
     .menu-item {
+        border-radius: 10px;
         position: relative;
         padding: 10px 15px;
-        background-color: #f0f0f0;
+        background-color: white;
         cursor: pointer;
         border: 1px solid #ddd;
         margin-bottom: 5px;
     }
 
     .menu-item:hover {
-        background-color: #e0e0e0;
+        background-color: #376ac5;
     }
 
     .submenu {
@@ -67,86 +71,26 @@
     }
 
     .submenu li:hover {
-        background-color: #f0f0f0;
+        background-color: #376ac5;
     }
 
     .menu-item:hover .submenu {
         display: block;
     }
-    #specialists{
+    #specialists, #clients, #statistics, #manage, #bot, #logout {
         background-color: transparent;
-        background-image: url('/specialists-button.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
+        height: 25px;
         width: 150px;
-        height: 150px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        vertical-align: bottom;
+        font-family: Tahoma, sans-serif;
+        font-size: 14px;
+        color: black;
+        border-radius: 10px;
+        border: 0px solid #ccc;
     }
 
-    #clients{
-        background-color: transparent;
-        background-image: url('/clients-button.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        width: 150px;
-        height: 150px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        vertical-align: bottom;
-    }
-
-    #statistics{
-        background-color: transparent;
-        background-image: url('/statistics-button.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        width: 150px;
-        height: 150px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        vertical-align: bottom;
-    }
-
-    #manage{
-        background-color: transparent;
-        background-image: url('/management-button.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        width: 150px;
-        height: 150px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        vertical-align: bottom;
-    }
-
-    #bot{
-        background-color: transparent;
-        background-image: url('/bot-button.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        width: 150px;
-        height: 150px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        vertical-align: bottom;
-    }
-
-    #logout{
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        width: 150px;
-        height: 150px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        vertical-align: bottom;
+    #specialists:hover, #clients:hover, #statistics:hover, #manage:hover, #bot:hover, #logout:hover {
+        background-color: #376ac5;
+        color: white;
     }
 
     .grid-container {
@@ -159,31 +103,30 @@
     }
     #tools {
         grid-column: 1 / 4; /* Занимает весь верхний ряд */
-        display: grid; /* Включаем CSS Grid */
-        grid-template-columns: repeat(6, 1fr); /* Разбиваем на 6 равных колонок */
+        display: flex;
+        justify-content: space-between; /* Располагает элементы по краям */
+        align-items: center; /* Выравнивание по центру по вертикали */
+        width: 92%;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .left-buttons {
+        display: flex;
         gap: 10px;
     }
-    #filial-list {
-        grid-column: 1; /* Первый столбец */
-        grid-row: 2 / 4; /* Занимает два ряда */
-    }
-    #filial-info-storage {
-        grid-column: 2 / 4; /* Занимает два столбца справа */
-        grid-row: 2 / 4; /* Занимает два ряда */
-    }
-    #tools input {
-        grid-column: span 1; /* Каждый input занимает одну колонку */
-        max-width: 100%; /* Предотвращаем перерастяжение */
-    }
+
 </style>
 <body>
     <div class="grid-container">
-        <div id="tools" style="background-color: red;">
-            <input id="specialists" name="specialists" value="специалисты" type="button" onclick="window.location.href='/specialist'">
-            <input id="statistics" name="statistics" value="статистика" type="button" onclick="window.location.href='/client'">
-            <input id="clients" name="clients" value="Клиенты" type="button" onclick="window.location.href='/client'">
-            <input id="manage" name="manage" value="Панель управления" type="button" onclick="window.location.href='/client'">
-            <input id="bot" name="bot" value="Бот" type="button" onclick="window.location.href='/client'">
+        <div id="tools">
+            <div class="left-buttons">
+                <input id="specialists" name="specialists" value="специалисты" type="button" onclick="window.location.href='/specialist'">
+                <input id="statistics" name="statistics" value="статистика" type="button" onclick="window.location.href='/client'">
+                <input id="clients" name="clients" value="Клиенты" type="button" onclick="window.location.href='/client'">
+                <input id="manage" name="manage" value="Панель управления" type="button" onclick="window.location.href='/client'">
+                <input id="bot" name="bot" value="Бот" type="button" onclick="window.location.href='/client'">
+            </div>
             <input id="logout" name="logout" value="Выход" type="button" onclick="logout()">
         </div>
         <div id="filial-list">
