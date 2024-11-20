@@ -115,14 +115,18 @@
         display: flex;
         gap: 10px;
     }
+    #filial-info-storage {
+        background-color: white;
+        border-radius: 10px;
+    }
 
 </style>
 <body>
     <div class="grid-container">
         <div id="tools">
             <div class="left-buttons">
-                <input id="specialists" name="specialists" value="специалисты" type="button" onclick="window.location.href='/specialist'">
-                <input id="statistics" name="statistics" value="статистика" type="button" onclick="window.location.href='/client'">
+                <input id="specialists" name="specialists" value="Специалисты" type="button" onclick="window.location.href='/specialist'">
+                <input id="statistics" name="statistics" value="Статистика" type="button" onclick="window.location.href='/client'">
                 <input id="clients" name="clients" value="Клиенты" type="button" onclick="window.location.href='/client'">
                 <input id="manage" name="manage" value="Панель управления" type="button" onclick="window.location.href='/client'">
                 <input id="bot" name="bot" value="Бот" type="button" onclick="window.location.href='/client'">
@@ -144,7 +148,7 @@
                 </ul>
             </#if>
         </div>
-        <div id="filial-info-storage" style="background-color: green;">
+        <div id="filial-info-storage">
             текст
         </div>
     </div>
