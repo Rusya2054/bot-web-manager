@@ -2,6 +2,11 @@
     <meta name="_csrf" content="${_csrf.token}" charset="UTF-8"> <!-- CSRF токен -->
     <title>ADMIN PANEL</title>
 </head>
+<style>
+    body{
+        background-color: #e6e6fa;
+    }
+</style>
 <script>
     function getCSRFToken() {
         const csrfTokenMeta = document.querySelector('meta[name="_csrf"]');
