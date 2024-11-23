@@ -38,10 +38,28 @@ public class SpecialistService {
         return image;
     }
 
-    public boolean createSpecialist(Specialist specialist){
-        specialist.setActive(true);
-        log.info("Created new specialist with id: {}", specialist.getId());
-        specialistRepository.save(specialist);
-        return true;
+    public Specialist updateSpecialist(Specialist specialist){
+        Optional<Specialist> dbSpecialist = specialistRepository.findByFullName(specialist.getFullName());
+        if (dbSpecialist.isPresent()){
+            specialist.setId(dbSpecialist.get().getId());
+            if (specialist.getImage() == null && dbSpecialist.get().getImage() != null){
+                specialist.setImage(dbSpecialist.get().getImage());
+            }
+            log.info("Updated information of specialist with id: {}", specialist.getId());
+            return specialistRepository.save(specialist);
+        }
+        createSpecialist(specialist);
+        return specialistRepository.findByFullName(specialist.getFullName()).get();
+    }
+
+    public boolean createSpecialist(Specialist specialist) {
+        Optional<Specialist> dbSpecialist = specialistRepository.findByFullName(specialist.getFullName());
+        if (!dbSpecialist.isPresent()){
+            specialist.setIsActive(true);
+            specialistRepository.save(specialist);
+            log.info("Created new specialist with fullName: {}", specialist.getFullName());
+            return true;
+        }
+        return false;
     }
 }

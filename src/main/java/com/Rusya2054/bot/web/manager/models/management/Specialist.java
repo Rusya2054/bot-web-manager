@@ -12,7 +12,7 @@ public class Specialist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "fullName")
+    @Column(name = "fullName", unique = true)
     private String fullName;
 
     @Column(name = "post")
@@ -28,7 +28,7 @@ public class Specialist {
     private Long tgUserID;
 
     @Column(name = "isActive")
-    private boolean isActive = true;
+    private Boolean isActive;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id", referencedColumnName = "id")
