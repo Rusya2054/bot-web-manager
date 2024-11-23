@@ -1,7 +1,9 @@
 package com.Rusya2054.bot.web.manager.controllers.management;
 
+import com.Rusya2054.bot.web.manager.models.management.Service;
 import com.Rusya2054.bot.web.manager.models.management.Specialist;
 import com.Rusya2054.bot.web.manager.models.management.SpecialistImage;
+import com.Rusya2054.bot.web.manager.services.management.ServicesService;
 import com.Rusya2054.bot.web.manager.services.management.SpecialistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +23,7 @@ import java.util.*;
 @PreAuthorize("hasRole('ADMIN') || hasRole('MODER')")
 public class SpecialistController {
     private final SpecialistService specialistService;
+    private final ServicesService servicesService;
 
     @GetMapping
     public String specialistsPage(Model model){
@@ -73,6 +76,8 @@ public class SpecialistController {
     @GetMapping("/{id}")
     public String getSpecialist(@PathVariable Long id, Model model){
         // TODO: найти все сервисы где задействован специалист
+        List<Service> specialistServices = servicesService.getServicesBySpecialist(id);
+        model.addAttribute("specialistServices", specialistServices);
         try {
             Specialist specialist = specialistService.getSpecialistById(id).orElseThrow();
             model.addAttribute("specialist", specialist);
