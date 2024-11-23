@@ -21,6 +21,7 @@ public class ManagementController {
     private final UserService userService;
     private final FilialService filialService;
     private final SpecialistService specialistService;
+
     @GetMapping("")
     public String getMainPage(Model model){
         model.addAttribute("currentUser", userService.getCurrentUser());
@@ -30,8 +31,9 @@ public class ManagementController {
         return "main";
     }
 
-    @GetMapping("1")
-    public String example(Model model){
-        return "main1";
+    @GetMapping("/manage")
+    public String getManagePage(Model model){
+        List<Filial> filials = filialService.getFilials();
+        return "manage-panel";
     }
 }
