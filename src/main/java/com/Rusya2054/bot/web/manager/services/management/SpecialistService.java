@@ -45,6 +45,7 @@ public class SpecialistService {
             if (specialist.getImage() == null && dbSpecialist.get().getImage() != null){
                 specialist.setImage(dbSpecialist.get().getImage());
             }
+            specialist.setIsActive(dbSpecialist.get().getIsActive());
             log.info("Updated information of specialist with id: {}", specialist.getId());
             return specialistRepository.save(specialist);
         }

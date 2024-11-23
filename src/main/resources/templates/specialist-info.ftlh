@@ -52,9 +52,8 @@
     <form id="update-specialist" action="/specialist/update" method="post" enctype="multipart/form-data">
         ФИО: <input type="text" name="fullName" value="${specialist.fullName}"/><br>
         Телеграмм user_id:
-            ${specialist}
-            <#if specialist.tgUserID?exists>
-                <input type="number" value="${specialist.tgUserID}" name="tgUserID" /><br>
+            <#if specialist.tgUserID?has_content>
+                <input type="text" value="${specialist.tgUserID?c}" name="tgUserID" /><br>
             <#else>
                 <input type="number" name="tgUserID" /><br>
             </#if>
@@ -81,8 +80,10 @@
         <input type="submit" value="Сохранить изменения сотрудника"/>
     </form>
     <#if specialist.isActive?string == "true">
+        Специалист активен
         <input type="button" value="Перенести в архив" onclick="updateSpecialist(${specialist.id}, 'setNonActive')">
     <#else>
+        Специалист в архиве
         <input type="button" value="Извлечь из архива" onclick="updateSpecialist(${specialist.id}, 'setActive')">
     </#if>
 

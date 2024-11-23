@@ -25,6 +25,12 @@ public class SpecialistController {
     @GetMapping
     public String specialistsPage(Model model){
         List<Specialist> specialists = specialistService.getAll();
+        specialists.sort(new Comparator<Specialist>() {
+            @Override
+            public int compare(Specialist o1, Specialist o2) {
+                return o1.getFullName().compareTo(o2.getFullName());
+            }
+        });
         model.addAttribute("activeSpecialists", specialists.stream().filter(s->s.getIsActive().equals(true)).toList());
         model.addAttribute("nonActiveSpecialists", specialists.stream().filter(s->s.getIsActive().equals(false)).toList());
         return "specialists";
