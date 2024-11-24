@@ -153,7 +153,7 @@ body {
                 Телефон: <input type="tel" name="phoneNumber" pattern="^\+7\d{10}$" required placeholder="+7XXXXXXXXXX"/><br>
                 Должность: <input type="text" name="post" required/><br>
                 email: <input type="email" name="email" required/><br>
-                Фотография: <input type="file" name="file">
+                Фотография: <input type="file" name="file" accept=".jpg, .png, .jpeg">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <input type="submit" value="Добавить специалиста"/>
             </form>

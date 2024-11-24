@@ -128,7 +128,7 @@
                 <input id="specialists" name="specialists" value="Специалисты" type="button" onclick="window.location.href='/specialist'">
                 <input id="statistics" name="statistics" value="Статистика" type="button" onclick="window.location.href='/client'">
                 <input id="clients" name="clients" value="Клиенты" type="button" onclick="window.location.href='/client'">
-                <input id="manage" name="manage" value="Панель управления" type="button" onclick="window.location.href='/client'">
+                <input id="manage" name="manage" value="Панель управления" type="button" onclick="window.location.href='/manage'">
                 <input id="bot" name="bot" value="Бот" type="button" onclick="window.location.href='/client'">
             </div>
             <input id="logout" name="logout" value="Выход" type="button" onclick="logout()">

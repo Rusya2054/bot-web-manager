@@ -48,10 +48,6 @@ public class SpecialistController {
             specialist.setImage(specialistImage);
         }
 
-        if (!file.getOriginalFilename().isEmpty()){
-            SpecialistImage specialistImage = specialistService.toSpecialistImageEntity(file);
-            specialist.setImage(specialistImage);
-        }
         if (!specialistService.createSpecialist(specialist)){
             redirectAttributes.addFlashAttribute("message", "Пользователь уже существует");
         }
@@ -60,7 +56,8 @@ public class SpecialistController {
 
     @PostMapping("/update")
     public String updateSpecialist(MultipartFile file, Specialist specialist, Model model) throws IOException {
-        if (!file.getOriginalFilename().isEmpty()){
+        if (!file.getOriginalFilename().isEmpty() && (Objects.equals(file.getContentType(), "image/png") ||
+                Objects.equals(file.getContentType(), "image/jpeg")|| Objects.equals(file.getContentType(), "image/jpg"))){
             SpecialistImage specialistImage = specialistService.toSpecialistImageEntity(file);
             specialist.setImage(specialistImage);
         }

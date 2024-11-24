@@ -214,7 +214,7 @@ body {
                 <input type="email" name="email"/><br>
             </#if>
 
-            Фотография: <input type="file" name="file">
+            Фотография: <input type="file" name="file" accept=".jpg, .png, .jpeg">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input type="submit" value="Сохранить изменения сотрудника"/>
         </form>

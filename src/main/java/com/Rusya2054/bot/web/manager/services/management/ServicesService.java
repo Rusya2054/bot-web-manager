@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -22,5 +23,12 @@ public class ServicesService {
         return serviceRepository.findBySpecialistId(id);
     }
 
+    public Optional<com.Rusya2054.bot.web.manager.models.management.Service> getServiceById(Long id){
+        return serviceRepository.findById(id);
+    }
+
+    public void saveService(com.Rusya2054.bot.web.manager.models.management.Service service){
+        serviceRepository.save(service);
+    }
 //    public List<Service> get
 }
