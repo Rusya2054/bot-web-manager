@@ -30,5 +30,9 @@ public class ServicesService {
     public void saveService(com.Rusya2054.bot.web.manager.models.management.Service service){
         serviceRepository.save(service);
     }
+
+    public void deleteServiceById(Long id){
+        serviceRepository.deleteById(id);
+    }
 //    public List<Service> get
 }

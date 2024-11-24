@@ -87,6 +87,7 @@
         </table>
     </div>
 </body>
+</html>
 <script>
     let rowCounter = ${services?size!0};
 
@@ -124,25 +125,90 @@
             '</td>';
         tableBody.appendChild(newRow);
     }
+
+    function getCSRFToken() {
+        const csrfTokenMeta = document.querySelector('meta[name="_csrf"]');
+        return csrfTokenMeta ? csrfTokenMeta.content : '';
+    }
+
     function deleteRow(inputRow){
+        const requestData = {}
+        const csrfToken = getCSRFToken();
         if (inputRow.startsWith("new")){
             const row = document.getElementById(inputRow);
             row.remove();
         } else {
             const elementId = Number(inputRow.split("-")[1]);
             console.log(elementId);
+            requestData["serviceId"] = elementId;
+            fetch('/service/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = response.url;
+                } else {
+                    console.log('Ошибка при удалении');
+                }
+            })
+            .catch(error => {
+                console.log('Ошибка сети:', error);
+            });
         }
-        console.log("deleteRow");
-        console.log(inputRow);
+        console.log(requestData);
     }
+
     function saveRow(inputRow){
+        const requestData = {}
+        const csrfToken = getCSRFToken();
         if (inputRow.startsWith("new")){
             const row = document.getElementById(inputRow);
+            const elementId = Number(inputRow.split("-")[2]);
             console.log(row);
+            const nameElement = row.querySelector('input[name="name-new"]');
+            const filialElement = row.querySelector('select[name="filials-new"]');
+            const specialistElement = row.querySelector('select[name="specialists-new"]');
+            requestData["serviceId"] = elementId;
+            requestData["serviceName"] = nameElement.value;
+            requestData["filialId"] = filialElement.value ? Number(filialElement.value) : null;
+            requestData["specialistId"] = specialistElement.value ? Number(specialistElement.value) : null;
+            requestData["isNew"] = true;
         } else {
+            const row = document.getElementById(inputRow);
             const elementId = Number(inputRow.split("-")[1]);
-            console.log(elementId);
+            console.log(row);
+            const nameElement = row.querySelector('input[name="name-'+elementId+'"]');
+            const filialElement = row.querySelector('select[name="filials-'+elementId+'"]');
+            const specialistElement = row.querySelector('select[name="specialists-'+elementId+'"]');
+            requestData["serviceId"] = elementId;
+            requestData["serviceName"] = nameElement.value;
+            requestData["filialId"] = filialElement.value ? Number(filialElement.value) : null;
+            requestData["specialistId"] = specialistElement.value ? Number(specialistElement.value) : null;
+            requestData["isNew"] = false;
         }
+        fetch('/service/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = response.url;
+            } else {
+                console.log('Ошибка при удалении');
+            }
+        })
+        .catch(error => {
+            console.log('Ошибка сети:', error);
+        });
+        console.log(requestData);
     }
 </script>
-</html>

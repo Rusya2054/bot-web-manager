@@ -1,5 +1,6 @@
 package com.Rusya2054.bot.web.manager.controllers.management;
 
+import com.Rusya2054.bot.web.manager.controllers.management.request.UpdateServiceData;
 import com.Rusya2054.bot.web.manager.models.management.Filial;
 import com.Rusya2054.bot.web.manager.models.management.Service;
 import com.Rusya2054.bot.web.manager.models.management.Specialist;
@@ -11,20 +12,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN') || hasRole('MODER')")
+@SessionAttributes("{message}")
 @RequestMapping("/")
+@PreAuthorize("hasRole('ADMIN') || hasRole('MODER')")
 public class ManagementController {
     private final UserService userService;
     private final FilialService filialService;
@@ -63,14 +60,42 @@ public class ManagementController {
         return "manage-panel";
     }
     @PostMapping("/service/update")
-    public String updateService(@RequestBody Map<String, Object> requestData){
-        System.out.println(requestData);
+    public String updateService(@RequestBody UpdateServiceData updateServiceData, RedirectAttributes redirectAttributes){
+        if (updateServiceData.getServiceName().isEmpty()){
+            redirectAttributes.addFlashAttribute("message", "Пустое название услуги");
+            return "redirect:/manage";
+        }
+        if (updateServiceData.getServiceId() != null &&
+                updateServiceData.getFilialId() != null &&
+                updateServiceData.getSpecialistId() != null){
+            Service service = (updateServiceData.getIsNew()) ? new Service() : servicesService.getServiceById(updateServiceData.getServiceId()).get();
+            Optional<Filial> filial = filialService.getFilialById(updateServiceData.getFilialId());
+            if (filial.isPresent() && service.getFilial() != null && !service.getFilial().getId().equals(updateServiceData.getFilialId())){
+                service.setFilial(filialService.getFilialById(updateServiceData.getFilialId()).get());
+            }
+            if (filial.isPresent() && service.getFilial() == null){
+                service.setFilial(filial.get());
+            }
+            Optional<Specialist> specialist = specialistService.getSpecialistById(updateServiceData.getSpecialistId());
+            if (specialist.isPresent() && service.getSpecialist() != null && !service.getSpecialist().getId().equals(updateServiceData.getSpecialistId())){
+                service.setSpecialist(specialistService.getSpecialistById(updateServiceData.getSpecialistId()).get());
+            }
+            if (specialist.isPresent() && service.getSpecialist() == null){
+                service.setSpecialist(specialist.get());
+            }
+            service.setName(updateServiceData.getServiceName());
+            servicesService.saveService(service);
+            return "redirect:/manage";
+        }
+        redirectAttributes.addFlashAttribute("message", "Данные не полностью заполнены");
         return "redirect:/manage";
     }
 
     @PostMapping("/service/delete")
     public String deleteService(@RequestBody Map<String, Object> requestData){
         System.out.println(requestData);
+        final Long id = Long.parseLong((String) requestData.get("serviceId"));
+        servicesService.deleteServiceById(id);
         return "redirect:/manage";
     }
 
